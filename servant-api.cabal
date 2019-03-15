@@ -26,5 +26,16 @@ executable servant-api
 library
   exposed-modules:   App
                  ,   Server
+                 ,   routes.ItemApi
+                 ,   controllers.Controller
+                 ,   models.Item
+  
   hs-source-dirs:    src
-  build-depends:
+
+  build-depends:     base
+               ,     servant
+               ,     servant-Server
+               ,     transformers
+               ,     aeson
+               ,     wai
+               ,     warp
