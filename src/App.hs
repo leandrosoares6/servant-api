@@ -1,6 +1,7 @@
 module App where
 
 -- Dependencias criadas pelo desenvolvedor
+    import Routes.ItemApi
     import Server
 
 -- Dependencias externas

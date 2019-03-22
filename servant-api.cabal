@@ -14,28 +14,41 @@ cabal-version:       >=1.10
 extra-source-files:  README.md
 
 executable servant-api
-  hs-source-dirs:      app
-  main-is:             Main.hs
+  main-is:             app/Main.hs
+  ghc-options:         -Wall
+  build-depends:
+      aeson
+    , base
+    , servant-api
+    , servant
+    , servant-server
+    , transformers
+    , wai
+    , warp
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5
-  default-extensions:  DataKinds
-                    ,  DeriveGeneric
-                    ,  LambdaCase
-                    ,  TypeOperators
 
 library
   exposed-modules:   App
                  ,   Server
-                 ,   routes.ItemApi
-                 ,   controllers.Controller
-                 ,   models.Item
+                 ,   Routes.ItemApi
+                 ,   Controllers.Controller
+                 ,   Models.Item
   
   hs-source-dirs:    src
 
-  build-depends:     base
-               ,     servant
-               ,     servant-Server
-               ,     transformers
-               ,     aeson
-               ,     wai
-               ,     warp
+  ghc-options:       -Wall
+
+  build-depends:
+      aeson
+    , base
+    , servant
+    , servant-server
+    , transformers
+    , wai
+    , warp
+  default-language: Haskell2010
+  
+  --default-extensions:  DataKinds
+  --                  ,  DeriveGeneric
+  --                  ,  LambdaCase
+  --                  ,  TypeOperators

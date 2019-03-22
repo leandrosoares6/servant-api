@@ -1,4 +1,4 @@
-module Item where
+module Models.Item where
 
     import Data.Aeson
     import GHC.Generics
@@ -12,3 +12,7 @@ module Item where
 
     instance ToJSON Item
     instance FromJSON Item
+
+    data a + b = Foo a b
+
+    type X = Int + Bool

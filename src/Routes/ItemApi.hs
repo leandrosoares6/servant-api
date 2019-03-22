@@ -1,4 +1,4 @@
-module ItemApi where
+module Routes.ItemApi where
 
     import Item
     import Servant
