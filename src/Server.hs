@@ -1,9 +1,8 @@
 module Server where
     
-    import ItemApi
-    
-    import Network.Wai
-    import Network.Wai.Handler.Warp
+    import Routes.ItemApi
+    import Controllers.Controller
+    import Servant
 
     server :: Server ItemApi
     server =

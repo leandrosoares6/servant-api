@@ -8,6 +8,7 @@ module App where
     import System.IO
     import Network.Wai
     import Network.Wai.Handler.Warp
+    import Servant
 
     run :: IO ()
     run = do

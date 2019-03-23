@@ -2,5 +2,5 @@ module Main where
 
   import App
 
-main :: IO ()
-main = run
+  main :: IO ()
+  main = run  

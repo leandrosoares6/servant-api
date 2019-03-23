@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module Models.Item where
 
     import Data.Aeson
@@ -12,7 +14,3 @@ module Models.Item where
 
     instance ToJSON Item
     instance FromJSON Item
-
-    data a + b = Foo a b
-
-    type X = Int + Bool

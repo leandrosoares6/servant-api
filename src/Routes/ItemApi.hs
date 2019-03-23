@@ -1,6 +1,9 @@
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE TypeOperators #-}
+
 module Routes.ItemApi where
 
-    import Item
+    import Models.Item
     import Servant
 
     type ItemApi = 
