@@ -1,7 +1,7 @@
 module App where
 
 -- Dependencias criadas pelo desenvolvedor
-    import Routes.ItemApi
+    import Routes.UserApi
     import Server
 
 -- Dependencias externas
@@ -15,9 +15,9 @@ module App where
         let port = 3000
             settings =
                 setPort port $
-                setBeforeMainLoop (hPutStrLn stderr ("listening on port" ++ show port)) $
+                setBeforeMainLoop (hPutStrLn stderr ("listening on port " ++ show port)) $
                 defaultSettings
         runSettings settings =<< mkApp
 
     mkApp :: IO Application
-    mkApp = return $ serve itemApi server
+    mkApp = return $ serve userApi server

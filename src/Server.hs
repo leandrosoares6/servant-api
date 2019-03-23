@@ -1,10 +1,10 @@
 module Server where
     
-    import Routes.ItemApi
+    import Routes.UserApi
     import Controllers.Controller
     import Servant
 
-    server :: Server ItemApi
+    server :: Server UserApi
     server =
-        getItems :<|>
-        getItemById
+        getUsers :<|>
+        getUserById

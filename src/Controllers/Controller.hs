@@ -2,19 +2,16 @@
 
 module Controllers.Controller where
 
-    import Models.Item
-    import System.IO
+    import Models.User
     import Servant
-    import Network.Wai
-    import Network.Wai.Handler.Warp
 
-    getItems :: Handler [Item]
-    getItems = return [exampleItem]
+    getUsers :: Handler [User]
+    getUsers = return [exampleUser]
 
-    getItemById :: Integer -> Handler Item
-    getItemById = \ case
-        0 -> return exampleItem
+    getUserById :: Integer -> Handler User
+    getUserById = \ case
+        0 -> return exampleUser
         _ -> throwError err404
 
-    exampleItem :: Item
-    exampleItem = Item 0 "example item"
+    exampleUser :: User
+    exampleUser = User 0 "Leandro Soares"
