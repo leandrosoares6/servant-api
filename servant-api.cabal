@@ -56,4 +56,5 @@ library
     , resource-pool
     , servant-client
     , http-client
+    , configurator
   default-language: Haskell2010
