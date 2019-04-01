@@ -15,7 +15,9 @@ extra-source-files:  README.md
 
 executable servant-api
   main-is:             app/Main.hs
-  ghc-options:         -Wall
+  ghc-options:         -Wall -pgmL markdown-unlit
+  build-tool-depends: markdown-unlit:markdown-unlit
+  
   build-depends:
       aeson
     , base
@@ -25,13 +27,15 @@ executable servant-api
     , transformers
     , wai
     , warp
+    , postgresql-simple >= 0.5
   default-language:    Haskell2010
 
 library
   exposed-modules:   App
                  ,   Server
+                 ,   Configs.DbConfig
                  ,   Routes.UserApi
-                 ,   Controllers.Controller
+                 ,   Controllers.UserController
                  ,   Models.User
   
   hs-source-dirs:    src
@@ -40,10 +44,16 @@ library
 
   build-depends:
       aeson
+    , bytestring 
     , base
     , servant
     , servant-server
     , transformers
     , wai
     , warp
+    , http-api-data
+    , postgresql-simple >= 0.5
+    , resource-pool
+    , servant-client
+    , http-client
   default-language: Haskell2010

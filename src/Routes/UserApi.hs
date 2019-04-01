@@ -7,8 +7,8 @@ module Routes.UserApi where
     import Servant
 
     type UserApi = 
-        "user" :> Get '[JSON] [User] :<|>
-        "user" :> Capture "userId" Integer :> Get '[JSON] User
+        "users" :> Get '[JSON] [User] :<|>
+        "users" :> Capture "id" Integer :> Get '[JSON] User
 
     userApi :: Proxy UserApi
     userApi = Proxy

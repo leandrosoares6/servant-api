@@ -1,7 +1,7 @@
 module Server where
     
     import Routes.UserApi
-    import Controllers.Controller
+    import Controllers.UserController
     import Servant
 
     server :: Server UserApi

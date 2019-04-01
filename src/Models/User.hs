@@ -4,13 +4,17 @@ module Models.User where
 
     import Data.Aeson
     import GHC.Generics
+    --import Data.Time (UTCTime)
 
     data User
         = User {
-            userId :: Integer,
-            userName :: String
+            id :: Integer,
+            name :: String,
+            email :: String
+            -- createdAt :: UTCTime
         }
         deriving (Eq, Show, Generic)
 
     instance ToJSON User
     instance FromJSON User
+    
