@@ -7,4 +7,4 @@ module Server where
     server :: Server UserApi
     server =
         getUsers :<|>
-        getUserById
+        getUserById   

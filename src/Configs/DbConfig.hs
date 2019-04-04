@@ -7,8 +7,6 @@ module Configs.DbConfig where
     import GHC.Generics
     import qualified Data.Configurator as C
     import qualified Data.Configurator.Types as C
-    import Data.Pool(Pool, createPool, withResource)
-
     data DbConf
         = DbConf {
             user :: String,
@@ -25,36 +23,43 @@ module Configs.DbConfig where
             connectDatabase = database conf
         }
 
-    mkDbConf :: C.Config -> IO (Maybe DbConf)
-    mkDbConf conf = do
-        user <- C.lookup conf "database.user" :: IO (Maybe String)
-        password <- C.lookup conf "database.password" :: IO (Maybe String)
-        name <- C.lookup conf "database.password" :: IO (Maybe String)
-        return $ DbConf <$> name
-                        <*> user
-                        <*> password
+    makeDbConfig :: C.Config -> IO (Maybe DbConf)
+    makeDbConfig conf = do
+        usr <- C.lookup conf "database.user" :: IO (Maybe String)
+        pwd <- C.lookup conf "database.password" :: IO (Maybe String)
+        dtb <- C.lookup conf "database.name" :: IO (Maybe String)
+        return $ DbConf <$> usr
+                        <*> pwd
+                        <*> dtb
 
-
-
-    runDB ::IO ()
+    runDB :: IO ()
     runDB = do
-        loadDbConf <- C.load [C.Required "application.conf"]
-        dbConf <- mkDbConf loadDbConf
-
-        case dbConf of
-            Nothing -> putStrLn "Arquivo de configuracao nao encontrado. Terminando..."
-            Just conf -> do
-                pool <- createPool (newConn conf) close 1 64 10
-                _ <- execute_ pool "CREATE TABLE IF NOT EXISTS users (id SERIAL, name varchar(45) NOT NULL, email varchar(45) NOT NULL)"
-                close pool
-
-    {-     runDB :: IO ()
-
-    runDB = do
-        conn <- connect defaultConnectInfo {
+        {- conn <- connect defaultConnectInfo {
             connectUser = "test",
             connectPassword = "test",
             connectDatabase = "servant"
-        }
-        _ <- execute_ conn "CREATE TABLE IF NOT EXISTS users (id SERIAL, name varchar(45) NOT NULL, email varchar(45) NOT NULL);"
-        close conn -}
+        } -}
+        loadCfg <- C.load [C.Required "application.conf"]
+        dbCfg <- makeDbConfig loadCfg
+        
+        case dbCfg of
+            Nothing -> putStrLn "Database nao encontrado para as configuracoes especificadas!"
+            Just conf -> do
+                conn <- newConn conf
+                _ <- execute_ conn "CREATE TABLE IF NOT EXISTS users (id SERIAL, name varchar(45) NOT NULL, email varchar(45) NOT NULL);"
+                close conn
+{- 
+            -- Aceita argumentos
+    fetch :: (FromRow r, ToRow q) => Pool Connection -> q -> Query -> IO [r]
+    fetch pool args sql = withResource pool retrieve
+      where retrieve conn = query conn sql args
+
+    -- Sem argumentos - Somente SQL puro
+    fetchSimple :: FromRow r => Pool Connection -> Query -> IO [r]
+    fetchSimple pool sql = withResource pool retrieve
+       where retrieve conn = query_ conn sql
+
+    -- Atualizando database
+    execSql :: ToRow q => Pool Connection -> q -> Query -> IO Int64
+    execSql pool args sql = withResource pool ins
+       where ins conn = execute conn sql args -}
