@@ -1,3 +1,4 @@
+
 module Server where
     
     import Routes.UserApi
@@ -8,5 +9,6 @@ module Server where
 
     server :: Pool Connection -> Server UserApi
     server conns =
-        getUsers :<|>
-        getUserById
+        {- getUsers :<|>
+        getUserById  -}
+        createUser conns

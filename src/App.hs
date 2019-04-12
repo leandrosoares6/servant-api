@@ -27,8 +27,8 @@ module App where
                 putStrLn "Database nao encontrado para as configuracoes especificadas!"
 
             Just conf -> do
-                conn <- newConn conf
-                _ <- execute_ conn "CREATE TABLE IF NOT EXISTS users (id SERIAL, name varchar(45) NOT NULL, email varchar(45) NOT NULL);"
+                {- conn <- newConn conf
+                _ <- execute_ conn "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name varchar(45) NOT NULL, email varchar(45) NOT NULL);" -}
                 pool <- createPool (newConn conf) close 1 64 10
                 let port = 4000
                     settings =
