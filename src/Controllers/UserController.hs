@@ -13,7 +13,7 @@ module Controllers.UserController where
     import Data.Pool
     import Database.PostgreSQL.Simple
     import Control.Monad.IO.Class
-    import Database.PostgreSQL.ORM
+    import Database.PostgreSQL.ORM.Model
 
 
     {- getUsers :: Handler [User]
@@ -24,14 +24,11 @@ module Controllers.UserController where
         1 -> return exampleUser
         _ -> throwError err404 -}
 
-    user :: User
-    user = User (DBKey 1) "leandro" "leandro@example.com"
-
-    createUser :: Pool Connection -> User -> Handler NoContent
+    createUser :: Pool Connection -> User -> Handler User
     createUser conns usr = do
         _ <-    liftIO . withResource conns $ \conn ->
-                    save conn usr
-        return NoContent
+                    trySave conn usr
+        return usr
     
 
     {- exampleUser :: User

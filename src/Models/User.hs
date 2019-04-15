@@ -9,7 +9,7 @@ module Models.User where
 
     data User
         = User {
-            id :: !DBKey,
+            id :: DBKey,
             name :: String,
             email :: String
             -- createdAt :: UTCTime

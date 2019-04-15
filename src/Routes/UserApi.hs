@@ -9,7 +9,7 @@ module Routes.UserApi where
     type UserApi = 
         {- "users" :> Get '[JSON] [User] :<|>
         "users" :> Capture "id" Integer :> Get '[JSON] User -}
-        "users" :> ReqBody '[JSON] User :> Post '[JSON] NoContent
+        "users" :> ReqBody '[JSON] User :> Post '[JSON] User
 
     userApi :: Proxy UserApi
     userApi = Proxy
