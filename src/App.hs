@@ -7,7 +7,7 @@ module App where
     import Configs.DbConfig
     import Routes.UserApi
     import Server
-    import Models.User
+    --import Models.User
 
 -- Dependencias externas
     import System.IO
@@ -15,7 +15,7 @@ module App where
     import Network.Wai.Handler.Warp
     import Servant
     import Database.PostgreSQL.Simple
-    import Database.PostgreSQL.ORM.Model
+    --import Database.PostgreSQL.ORM.Model
     import Data.Pool
     import qualified Data.Configurator as C
 

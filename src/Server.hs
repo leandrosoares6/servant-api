@@ -9,6 +9,6 @@ module Server where
 
     server :: Pool Connection -> Server UserApi
     server conns =
-        {- getUsers :<|>
-        getUserById  -}
+        getUsers conns :<|>
+        getUserById conns :<|>
         createUser conns
