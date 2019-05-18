@@ -17,15 +17,6 @@ module Controllers.UserController where
     import Data.Maybe
     import GHC.Int
 
-
-    {- getUsers :: Handler [User]
-    getUsers = return [exampleUser]
-
-    getUserById :: Integer -> Handler User
-    getUserById = \ case
-        1 -> return exampleUser
-        _ -> throwError err404 -}
-
     getUsers :: Pool Connection -> Handler [User]
     getUsers conns = do
         getUsrs <-    liftIO . withResource conns $ \conn ->
@@ -43,7 +34,3 @@ module Controllers.UserController where
         _ <-    liftIO . withResource conns $ \conn ->
                     trySave conn usr
         return usr
-    
-
-    {- exampleUser :: User
-    exampleUser = User (DBKey 1) "Leandro Soares" "leandro@example.com" -}

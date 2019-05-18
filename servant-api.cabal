@@ -29,6 +29,7 @@ executable servant-api
     , warp
     , postgresql-simple >= 0.5
     , postgresql-orm >= 0.5.1
+    , servant-exceptions
   default-language:    Haskell2010
 
 library
@@ -61,4 +62,5 @@ library
     , markdown-unlit
     , http-types
     , postgresql-orm >= 0.5.1
+    , servant-exceptions
   default-language: Haskell2010
