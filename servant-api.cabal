@@ -37,8 +37,11 @@ library
                  ,   Server
                  ,   Configs.DbConfig
                  ,   Routes.UserApi
+                 ,   Routes.ContactApi
                  ,   Controllers.UserController
+                 ,   Controllers.ContactController
                  ,   Models.User
+                 ,   Models.Contact
   
   hs-source-dirs:    src
 

@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric, OverloadedStrings #-}
 
 module Models.User where
 
@@ -15,8 +15,7 @@ module Models.User where
             -- createdAt :: UTCTime
         }
         deriving (Show, Generic)
-    instance Model User
+    instance Model User where modelInfo = underscoreModelInfo "user"
     
     instance ToJSON User
     instance FromJSON User
-    

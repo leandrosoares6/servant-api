@@ -42,4 +42,4 @@ module App where
                 runSettings settings =<< mkApp pool
     
     mkApp :: Pool Connection -> IO Application
-    mkApp conns = return $ (serve userApi (server conns))
+    mkApp conns = return $ (serve userApi (userServer conns))

@@ -1,21 +1,24 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric, OverloadedStrings #-}
 
-module Models.User where
 
+module Models.Contact where
+
+    import Models.User
     import Data.Aeson
     import GHC.Generics
     import Database.PostgreSQL.ORM.Model
     --import Data.Time (UTCTime)
 
     data Contact
-        = User {
+        = Contact {
             id :: DBKey,
+            contactUserId :: DBRef User,
             name :: String,
             number :: String
             -- createdAt :: UTCTime
         }
         deriving (Show, Generic)
-    instance Model Contact
+    instance Model Contact where modelInfo = underscoreModelInfo "contact"
     
     instance ToJSON Contact
     instance FromJSON Contact
