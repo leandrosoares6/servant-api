@@ -2,7 +2,7 @@
 module Server where
     
     import Routes.UserApi
-    import Routes.ContactApi
+    --import Routes.ContactApi
     import Controllers.UserController
     import Servant
     import Data.Pool
