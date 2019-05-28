@@ -5,8 +5,8 @@ module App where
 
 -- Dependencias criadas pelo desenvolvedor
     import Configs.DbConfig
-    import Routes.UserApi
-    import Server
+    import Routes.MainApi
+    --import Server
     --import Models.User
 
 -- Dependencias externas
@@ -42,4 +42,4 @@ module App where
                 runSettings settings =<< mkApp pool
     
     mkApp :: Pool Connection -> IO Application
-    mkApp conns = return $ (serve userApi (userServer conns))
+    mkApp conns = return $ (serve mainApi (server conns))

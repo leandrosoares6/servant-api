@@ -6,6 +6,9 @@ module Routes.UserApi where
     import Models.User
     import Servant
     import GHC.Int
+    import Data.Pool
+    import Database.PostgreSQL.Simple
+    import Controllers.UserController
     --import Exceptions.UserException
     {- import Servant.Exception (Throws) -}
 
@@ -14,6 +17,9 @@ module Routes.UserApi where
             "users" :> Get '[JSON] [User] :<|>
             "users" :> Capture "id" Int64 :> Get '[JSON] User :<|>
             "users" :> ReqBody '[JSON] User :> Post '[JSON] User
-        
-    userApi :: Proxy UserApi
-    userApi = Proxy
+
+    server :: Pool Connection -> Server UserApi
+    server conns =
+        getUsers conns :<|>
+        getUserById conns :<|>
+        createUser conns

@@ -35,8 +35,8 @@ executable servant-api
 
 library
   exposed-modules:   App
-                 ,   Server
                  ,   Configs.DbConfig
+                 ,   Routes.MainApi
                  ,   Routes.UserApi
                  ,   Routes.ContactApi
                  ,   Controllers.UserController
