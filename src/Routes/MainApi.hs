@@ -4,7 +4,7 @@
 module Routes.MainApi where
     
     import Routes.UserApi as UserApi
-    --import Routes.ContactApi as ContactApi
+    import Routes.ContactApi as ContactApi
     import Servant
     import Data.Pool
     import Database.PostgreSQL.Simple
@@ -18,5 +18,5 @@ module Routes.MainApi where
 
     server :: Pool Connection -> Server MainApi
     server conns =
-        UserApi.server conns {- :<|>
-        ContactsApi.server conns -}
+        UserApi.server conns :<|>
+        ContactApi.server conns
