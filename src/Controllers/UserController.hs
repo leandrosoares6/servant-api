@@ -22,10 +22,6 @@ module Controllers.UserController where
                     findAll conn
         return getUsrs
 
-    userNotFound :: Handler ()
-    userNotFound = throwError err404 {
-        errBody = "User not found!"
-    }
     getUserById :: Pool Connection -> Int64 -> Handler (User)
     getUserById conns dbkey = liftIO. withResource conns $ \conn -> do
         getUsr <-   liftIO $ findRow conn (DBRef dbkey)
@@ -33,7 +29,6 @@ module Controllers.UserController where
         {- if (isJust getUsr)
             then return (fromJust getUsr)
             else userNotFound -}
-
         
     createUser :: Pool Connection -> User -> Handler User
     createUser conns usr = do

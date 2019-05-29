@@ -10,8 +10,8 @@ module Routes.MainApi where
     import Database.PostgreSQL.Simple
 
     type MainApi =
-        UserApi {- :<|>
-        ContactApi -}
+        UserApi :<|>
+        ContactApi
 
     mainApi :: Proxy MainApi
     mainApi = Proxy

@@ -7,7 +7,7 @@
 
 module Controllers.ContactController where
 
-    import Models.User
+    --import Models.User
     import Models.Contact
 
     import Servant
@@ -18,20 +18,20 @@ module Controllers.ContactController where
     import Data.Maybe
     import GHC.Int
 
-    getUserContacts :: Pool Connection -> Int64 -> Handler [Contact]
-    getUserContacts conns usrDbRef = do
+    getUserContacts :: Pool Connection -> Handler [Contact]
+    getUserContacts conns = do
         getUsrCts <-    liftIO . withResource conns $ \conn ->
                     findAll conn
         return getUsrCts
 
-    getUserContactById :: Pool Connection -> Int64 -> Int64 -> Handler Contact
-    getUserContactById conns usrDbRef dbkey = liftIO. withResource conns $ \conn -> do
+    getUserContactById :: Pool Connection -> Int64 -> Handler (Contact)
+    getUserContactById conns dbkey = liftIO. withResource conns $ \conn -> do
         getUsrCtById <-   liftIO $ findRow conn (DBRef dbkey)
         return (fromJust getUsrCtById)
 
         
-    createUserContact :: Pool Connection -> Int64 -> (Contact -> Handler Contact)
-    createUserContact conns usrDbRef usrCt = do
+    createUserContact :: Pool Connection -> Contact -> Handler Contact
+    createUserContact conns usrCt = do
         _ <-    liftIO . withResource conns $ \conn ->
                     trySave conn usrCt
         return usrCt
