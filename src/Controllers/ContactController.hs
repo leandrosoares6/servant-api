@@ -18,7 +18,7 @@ module Controllers.ContactController where
     import Data.Maybe
     import GHC.Int
 
-    getUserContacts :: Pool Connection -> Handler [Contact]
+    getUserContacts :: Pool Connection ->Handler [Contact]
     getUserContacts conns = do
         getUsrCts <-    liftIO . withResource conns $ \conn ->
                     findAll conn

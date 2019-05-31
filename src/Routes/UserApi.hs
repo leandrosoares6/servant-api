@@ -13,10 +13,12 @@ module Routes.UserApi where
     {- import Servant.Exception (Throws) -}
 
 
-    type UserApi = 
-            "users" :> Get '[JSON] [User] :<|>
-            "users" :> Capture "id" Int64 :> Get '[JSON] User :<|>
-            "users" :> ReqBody '[JSON] User :> Post '[JSON] User
+    type UserApi
+        = "users" :> (
+                        Get '[JSON] [User] :<|>
+                        Capture "id" Int64 :> Get '[JSON] User :<|>
+                        ReqBody '[JSON] User :> Post '[JSON] User
+                    )
 
     server :: Pool Connection -> Server UserApi
     server conns =
