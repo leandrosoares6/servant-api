@@ -9,19 +9,21 @@ module Controllers.ContactController where
 
     --import Models.User
     import Models.Contact
+    import Models.Associations
 
     import Servant
     import Data.Pool
     import Control.Monad.IO.Class
     import Database.PostgreSQL.Simple
     import Database.PostgreSQL.ORM.Model
+    import Database.PostgreSQL.ORM.Association
     import Data.Maybe
     import GHC.Int
 
     getUserContacts :: Pool Connection -> Int64 ->Handler [Contact]
-    getUserContacts conns userid = do
-        getUsrCts <-    liftIO . withResource conns $ \conn ->
-                    findAll conn
+    getUserContacts conns userid = liftIO . withResource conns $ \conn -> do
+        getUsr <- liftIO $ findRow conn (DBRef userid)
+        getUsrCts <- findAssoc user_contacts conn (fromJust getUsr)
         return getUsrCts
 
     getUserContactById :: Pool Connection -> Int64 -> Int64 -> Handler (Contact)

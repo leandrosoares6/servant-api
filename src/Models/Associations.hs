@@ -1,7 +1,7 @@
-module Associations where
+module Models.Associations where
 
-    import Models.User
-    import Models.Contacts
+    import Models.User (User)
+    import Models.Contact (Contact) 
     import Database.PostgreSQL.ORM.Association
 
     user_contacts :: Association User Contact
