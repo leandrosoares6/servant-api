@@ -7,7 +7,6 @@
 
 module Controllers.ContactController where
 
-    --import Models.User
     import Models.Contact
     import Models.Associations
 
@@ -19,7 +18,8 @@ module Controllers.ContactController where
     import Database.PostgreSQL.ORM.Association
     import Database.PostgreSQL.ORM.DBSelect
     import Data.Maybe
-    import Data.Char
+    import Data.String
+
     import GHC.Int
 
     getUserContacts :: Pool Connection -> Int64 ->Handler [Contact]
@@ -29,8 +29,9 @@ module Controllers.ContactController where
         return getUsrCts
 
     contactById :: Int64 -> Int64 -> DBSelect (Contact)
-    contactById userid dbkey = 
-        expressionDBSelect "* from contact where user_id=" ++ (show userid) ++ " and id=" ++ (show dbkey)
+    contactById userid dbkey = do
+        let q = mconcat ["* from contact where user_id=", show userid, " and id=", show dbkey]
+        expressionDBSelect $ fromString q
 
     getUserContactById :: Pool Connection -> Int64 -> Int64 -> Handler (Contact)
     getUserContactById conns userid dbkey = liftIO. withResource conns $ \conn -> do
