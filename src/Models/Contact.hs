@@ -12,7 +12,7 @@ module Models.Contact where
     data Contact
         = Contact {
             id :: DBKey,
-            contactUserId :: DBRef User,
+            userId :: DBRef User,
             name :: String,
             number :: String
             -- createdAt :: UTCTime
