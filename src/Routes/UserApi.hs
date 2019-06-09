@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeOperators #-}
 
+
 module Routes.UserApi where
 
     import Models.User
@@ -17,11 +18,13 @@ module Routes.UserApi where
         = "users" :> (
                         Get '[JSON] [User] :<|>
                         Capture "id" Int64 :> Get '[JSON] User :<|>
-                        ReqBody '[JSON] User :> Post '[JSON] User
+                        ReqBody '[JSON] User :> Post '[JSON] User :<|>
+                        Capture "id" Int64 :> Delete '[JSON] NoContent
                     )
 
     server :: Pool Connection -> Server UserApi
     server conns =
         getUsers conns :<|>
         getUserById conns :<|>
-        createUser conns
+        createUser conns :<|>
+        removeUser conns

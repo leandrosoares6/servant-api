@@ -3,6 +3,8 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+
 
 
 module Controllers.UserController where
@@ -35,3 +37,9 @@ module Controllers.UserController where
         _ <-    liftIO . withResource conns $ \conn ->
                     trySave conn usr
         return usr
+    
+    removeUser :: Pool Connection -> Int64 -> Handler NoContent
+    removeUser conns userid = do
+        _ <-    liftIO . withResource conns $ \conn ->
+                    destroyByRef conn (DBRef userid :: DBRef User)
+        return NoContent

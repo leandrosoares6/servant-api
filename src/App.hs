@@ -31,7 +31,7 @@ module App where
             Just conf -> do
                 --let usr = User NullKey "leandro" "leandro@example.com"
                 conn <- newConn conf
-                _ <- execute_ conn "CREATE TABLE IF NOT EXISTS \"user\"(id serial primary key, name varchar(45) NOT NULL, email varchar(45) NOT NULL);"
+                _ <- execute_ conn "CREATE TABLE IF NOT EXISTS \"user\"(id serial primary key, name varchar(45) NOT NULL, email varchar(45) UNIQUE NOT NULL);"
                 _ <- execute_ conn "CREATE TABLE IF NOT EXISTS \"contact\"(id serial primary key, user_id integer NOT NULL, name varchar(45) NOT NULL, number varchar(15) NOT NULL);"
                 --_ <- trySave conn usr
                 pool <- createPool (newConn conf) close 1 64 10
