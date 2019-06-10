@@ -16,11 +16,13 @@ module Routes.ContactApi where
             "contacts" :> (
                             Get '[JSON] [Contact] :<|>
                             Capture "id" Int64 :>  Get '[JSON] Contact :<|>
-                            ReqBody '[JSON] Contact :> Post '[JSON] Contact
+                            ReqBody '[JSON] Contact :> Post '[JSON] Contact :<|>
+                            Capture "id" Int64 :> Delete '[JSON] NoContent
                         )
 
     server :: Pool Connection -> Server ContactApi
     server conns userid =
         getUserContacts conns userid :<|>
         getUserContactById conns userid :<|>
-        createUserContact conns userid
+        createUserContact conns :<|>
+        removeUserContact conns

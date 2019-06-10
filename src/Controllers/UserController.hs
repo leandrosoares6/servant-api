@@ -28,9 +28,6 @@ module Controllers.UserController where
     getUserById conns dbkey = liftIO. withResource conns $ \conn -> do
         getUsr <-   liftIO $ findRow conn (DBRef dbkey)
         return (fromJust getUsr)
-        {- if (isJust getUsr)
-            then return (fromJust getUsr)
-            else userNotFound -}
         
     createUser :: Pool Connection -> User -> Handler User
     createUser conns usr = do

@@ -39,8 +39,14 @@ module Controllers.ContactController where
         return (getUsrCtById!!0)
 
         
-    createUserContact :: Pool Connection -> Int64 -> Contact -> Handler Contact
-    createUserContact conns userid usrCt = do
+    createUserContact :: Pool Connection -> Contact -> Handler Contact
+    createUserContact conns usrCt = do
         _ <-    liftIO . withResource conns $ \conn ->
                     trySave conn usrCt
         return usrCt
+
+    removeUserContact :: Pool Connection -> Int64 -> Handler NoContent
+    removeUserContact conns contactid = do
+        _ <-    liftIO . withResource conns $ \conn ->
+                    destroyByRef conn (DBRef contactid :: DBRef Contact)
+        return NoContent
