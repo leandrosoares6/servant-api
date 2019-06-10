@@ -12,8 +12,7 @@ module Routes.ContactApi where
 
     -- Exemplo de uso de fatoracao na estruturação do endpoint
     type ContactApi
-        =   "users" :> Capture "id" Int64 :>
-            "contacts" :> (
+        =   "contacts" :> (
                             Get '[JSON] [Contact] :<|>
                             Capture "id" Int64 :>  Get '[JSON] Contact :<|>
                             ReqBody '[JSON] Contact :> Post '[JSON] Contact :<|>
@@ -21,8 +20,8 @@ module Routes.ContactApi where
                         )
 
     server :: Pool Connection -> Server ContactApi
-    server conns userid =
-        getUserContacts conns userid :<|>
-        getUserContactById conns userid :<|>
-        createUserContact conns :<|>
-        removeUserContact conns
+    server conns =
+        getContacts conns :<|>
+        getContactById conns :<|>
+        createContact conns :<|>
+        removeContact conns

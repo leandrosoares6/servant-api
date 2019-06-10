@@ -5,6 +5,7 @@
 module Routes.UserApi where
 
     import Models.User
+    import Models.Contact (Contact)
     import Servant
     import GHC.Int
     import Data.Pool
@@ -19,7 +20,8 @@ module Routes.UserApi where
                         Get '[JSON] [User] :<|>
                         Capture "id" Int64 :> Get '[JSON] User :<|>
                         ReqBody '[JSON] User :> Post '[JSON] User :<|>
-                        Capture "id" Int64 :> Delete '[JSON] NoContent
+                        Capture "id" Int64 :> Delete '[JSON] NoContent :<|>
+                        Capture "id" Int64 :> "contacts" :> Get '[JSON] [Contact]
                     )
 
     server :: Pool Connection -> Server UserApi
@@ -27,4 +29,5 @@ module Routes.UserApi where
         getUsers conns :<|>
         getUserById conns :<|>
         createUser conns :<|>
-        removeUser conns
+        removeUser conns :<|>
+        getUserContacts conns
