@@ -11,14 +11,12 @@ module Routes.UserApi where
     import Data.Pool
     import Database.PostgreSQL.Simple
     import Controllers.UserController
-    --import Exceptions.UserException
-    {- import Servant.Exception (Throws) -}
 
 
     type UserApi
         = "users" :> (
                         Get '[JSON] [User] :<|>
-                        Capture "id" Int64 :> Get '[JSON] User :<|>
+                        Capture "id" Int64 :> Get '[JSON] (Maybe User) :<|>
                         ReqBody '[JSON] User :> Post '[JSON] User :<|>
                         Capture "id" Int64 :> Delete '[JSON] NoContent :<|>
                         Capture "id" Int64 :> "contacts" :> Get '[JSON] [Contact]

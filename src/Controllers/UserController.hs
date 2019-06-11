@@ -27,10 +27,11 @@ module Controllers.UserController where
                     findAll conn
         return getUsrs
 
-    getUserById :: Pool Connection -> Int64 -> Handler (User)
+    getUserById :: Pool Connection -> Int64 -> Handler (Maybe User)
     getUserById conns dbkey = liftIO. withResource conns $ \conn -> do
         getUsr <-   liftIO $ findRow conn (DBRef dbkey)
-        return (fromJust getUsr)
+        return getUsr
+        
         
     createUser :: Pool Connection -> User -> Handler User
     createUser conns usr = do
