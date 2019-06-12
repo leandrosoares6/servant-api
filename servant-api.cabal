@@ -31,6 +31,8 @@ executable servant-api
     , postgresql-orm >= 0.5.1
     , servant-exceptions
     , text
+    , mtl
+    , mtl-compat
   default-language:    Haskell2010
 
 library
@@ -70,4 +72,6 @@ library
     , postgresql-orm >= 0.5.1
     , servant-exceptions
     , text
+    , mtl
+    , mtl-compat
   default-language: Haskell2010

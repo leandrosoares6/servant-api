@@ -12,7 +12,6 @@ module Routes.UserApi where
     import Database.PostgreSQL.Simple
     import Controllers.UserController
 
-
     type UserApi
         = "users" :> (
                         Get '[JSON] [User] :<|>
