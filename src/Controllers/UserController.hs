@@ -12,8 +12,8 @@ module Controllers.UserController where
     import Models.User
     import Models.Contact (Contact)
     import Models.Associations
-    import Servant.Server (Handler, ServantErr, errBody, err404)
-    import Servant.API.ContentTypes
+    import Servant
+    --import Servant.API.ContentTypes
     import Data.Pool
     import Control.Monad.IO.Class
     import Database.PostgreSQL.Simple
@@ -21,7 +21,7 @@ module Controllers.UserController where
     import Database.PostgreSQL.ORM.Association
     import Data.Maybe
     import GHC.Int
-    import Control.Monad.Except
+    --import Control.Monad.Except
 
     {- custom404Err = err404 { errBody = "myfile.txt just isn't there, please leave this server alone." } -}
 
@@ -36,9 +36,11 @@ module Controllers.UserController where
     getUserById :: Pool Connection -> Int64 -> Handler (Maybe User)
     getUserById conns dbkey = liftIO. withResource conns $ \conn -> do
         getUsr <-   liftIO $ findRow conn (DBRef dbkey)
-        if (isNothing getUsr)
-            then return getUsr{- throwError err404 -}
-            else return getUsr
+        return getUsr
+        {- if (isJust getUsr)
+            then pure $ (fromJust getUsr){- throwError err404 -}
+            --else throwError $ err404 { errBody = "User not found." }
+             -}
         
     createUser :: Pool Connection -> User -> Handler User
     createUser conns usr = do

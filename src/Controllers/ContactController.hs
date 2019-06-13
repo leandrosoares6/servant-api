@@ -14,7 +14,7 @@ module Controllers.ContactController where
     import Control.Monad.IO.Class
     import Database.PostgreSQL.Simple
     import Database.PostgreSQL.ORM.Model
-    import Data.Maybe
+    --import Data.Maybe
 
     import GHC.Int
 
@@ -24,10 +24,10 @@ module Controllers.ContactController where
                     findAll conn
         return getCts
 
-    getContactById :: Pool Connection -> Int64 -> Handler (Contact)
+    getContactById :: Pool Connection -> Int64 -> Handler (Maybe Contact)
     getContactById conns dbkey = liftIO. withResource conns $ \conn -> do
         getCt <-   liftIO $ findRow conn (DBRef dbkey)
-        return (fromJust getCt)
+        return getCt
         
     createContact :: Pool Connection -> Contact -> Handler Contact
     createContact conns usrCt = do

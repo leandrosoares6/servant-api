@@ -14,7 +14,7 @@ module Routes.ContactApi where
     type ContactApi
         =   "contacts" :> (
                             Get '[JSON] [Contact] :<|>
-                            Capture "id" Int64 :>  Get '[JSON] Contact :<|>
+                            Capture "id" Int64 :>  Get '[JSON] (Maybe Contact) :<|>
                             ReqBody '[JSON] Contact :> Post '[JSON] Contact :<|>
                             Capture "id" Int64 :> Delete '[JSON] NoContent
                         )
