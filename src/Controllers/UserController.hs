@@ -13,7 +13,6 @@ module Controllers.UserController where
     import Models.Contact (Contact)
     import Models.Associations
     import Servant
-    --import Servant.API.ContentTypes
     import Data.Pool
     import Control.Monad.IO.Class
     import Database.PostgreSQL.Simple
@@ -21,10 +20,9 @@ module Controllers.UserController where
     import Database.PostgreSQL.ORM.Association
     import Data.Maybe
     import GHC.Int
-    --import Control.Monad.Except
-
-    {- custom404Err = err404 { errBody = "myfile.txt just isn't there, please leave this server alone." } -}
-
+    import Data.String
+    import System.IO.Unsafe
+    
 
     getUsers :: Pool Connection -> Handler [User]
     getUsers conns = do
@@ -47,11 +45,21 @@ module Controllers.UserController where
         _ <-    liftIO . withResource conns $ \conn ->
                     trySave conn usr
         return usr
+
+    {- removeUserContactsQuery :: Int64 -> Query
+    removeUserContactsQuery userid = fromString $ mconcat ["delete from contact where user_id=", show userid]
+
+    removeUserContacts :: Connection -> Int64 -> IO Int64
+    removeUserContacts c userid = do
+        removed <-  execute_ c $ removeUserContactsQuery userid
+        return removed -}
+
     
     removeUser :: Pool Connection -> Int64 -> Handler NoContent
     removeUser conns userid = do
-        _ <-    liftIO . withResource conns $ \conn ->
+        _ <- liftIO . withResource conns $ \conn ->
                     destroyByRef conn (DBRef userid :: DBRef User)
+        -- r <- liftIO . withResource conns $ \conn -> unsafePerformIO $ removeUserContacts conn userid
         return NoContent
 
     getUserContacts :: Pool Connection -> Int64 ->Handler [Contact]

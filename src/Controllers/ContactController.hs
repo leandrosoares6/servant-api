@@ -14,7 +14,6 @@ module Controllers.ContactController where
     import Control.Monad.IO.Class
     import Database.PostgreSQL.Simple
     import Database.PostgreSQL.ORM.Model
-    --import Data.Maybe
 
     import GHC.Int
 

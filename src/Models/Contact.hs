@@ -7,7 +7,6 @@ module Models.Contact where
     import Data.Aeson
     import GHC.Generics
     import Database.PostgreSQL.ORM.Model
-    --import Data.Time (UTCTime)
 
     data Contact
         = Contact {

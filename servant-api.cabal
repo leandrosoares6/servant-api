@@ -43,7 +43,6 @@ library
                  ,   Routes.ContactApi
                  ,   Controllers.UserController
                  ,   Controllers.ContactController
-                 ,   Exceptions.UserException
                  ,   Models.User
                  ,   Models.Contact
                  ,   Models.Associations
