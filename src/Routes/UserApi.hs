@@ -1,4 +1,4 @@
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DataKinds     #-}
 {-# LANGUAGE TypeOperators #-}
 
 
@@ -15,7 +15,7 @@ module Routes.UserApi where
     type UserApi
         = "users" :> (
                         Get '[JSON] [User] :<|>
-                        Capture "id" Int64 :> Get '[JSON] (Maybe User) :<|>
+                        Capture "id" Int64 :> Get '[JSON] User :<|>
                         ReqBody '[JSON] User :> Post '[JSON] User :<|>
                         Capture "id" Int64 :> Delete '[JSON] NoContent :<|>
                         Capture "id" Int64 :> "contacts" :> Get '[JSON] [Contact]

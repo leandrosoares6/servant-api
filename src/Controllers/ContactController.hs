@@ -1,20 +1,19 @@
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE LambdaCase         #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE TypeOperators      #-}
+{-# LANGUAGE DataKinds          #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 
 
 module Controllers.ContactController where
 
     import Models.Contact
-
     import Servant
     import Data.Pool
+    import Data.Maybe
     import Control.Monad.IO.Class
     import Database.PostgreSQL.Simple
     import Database.PostgreSQL.ORM.Model
-
     import GHC.Int
 
     getContacts :: Pool Connection -> Handler [Contact]
@@ -23,10 +22,25 @@ module Controllers.ContactController where
                     findAll conn
         return getCts
 
-    getContactById :: Pool Connection -> Int64 -> Handler (Maybe Contact)
-    getContactById conns dbkey = liftIO. withResource conns $ \conn -> do
-        getCt <-   liftIO $ findRow conn (DBRef dbkey)
-        return getCt
+    fetchContactDB :: Pool Connection -> Int64 -> IO (Maybe Contact)
+    fetchContactDB conns dbkey = do
+        liftIO (
+            withResource conns $ \conn -> do
+                getCt <-   liftIO $ findRow conn (DBRef dbkey)
+                case getCt of
+                    Just contact -> return contact
+                    Nothing -> return Nothing
+            )
+
+    getContactById :: Pool Connection -> Int64 -> Handler Contact
+    getContactById conns dbkey = do
+        contact <- liftIO (fetchContactDB conns dbkey)
+        if (isJust contact)
+            then (return (fromJust contact))
+            else throwError contactNotFound
+        where contactNotFound = err404 {
+            errBody = "Contact not found."
+        }        
         
     createContact :: Pool Connection -> Contact -> Handler Contact
     createContact conns usrCt = do

@@ -22,14 +22,13 @@ executable servant-api
       aeson
     , base
     , servant-api
-    , servant
-    , servant-server
+    , servant == 0.16.2
+    , servant-server == 0.16.2
     , transformers
     , wai
     , warp
     , postgresql-simple >= 0.5
     , postgresql-orm >= 0.5.1
-    , servant-exceptions
     , text
     , mtl
     , mtl-compat
@@ -55,21 +54,20 @@ library
       aeson
     , bytestring 
     , base
-    , servant
-    , servant-server
+    , servant == 0.16.2
+    , servant-client
+    , servant-server == 0.16.2
     , transformers
     , wai
     , warp
-    , http-api-data
+    , http-api-data == 0.4.1
     , postgresql-simple >= 0.5
     , resource-pool
-    , servant-client
     , http-client
     , configurator
     , markdown-unlit
     , http-types
     , postgresql-orm >= 0.5.1
-    , servant-exceptions
     , text
     , mtl
     , mtl-compat

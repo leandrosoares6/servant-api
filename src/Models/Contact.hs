@@ -1,5 +1,5 @@
-{-# LANGUAGE DeriveGeneric, OverloadedStrings #-}
-
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Models.Contact where
 
